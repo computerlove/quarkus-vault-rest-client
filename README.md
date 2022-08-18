@@ -1,3 +1,19 @@
+# Reproducer for missing config when using Hashicorp Vault
+
+When using the extension some config keys needs to be present in application.properties in order for the config to
+be visible when running the application.
+
+For instance with the following in application.properties:
+```properties
+%dev.quarkus.smallrye-graphql-client.star-wars-typesafe.url=https://development.star.wars
+```
+The application will crash on startup when deployed with a Vault with
+```properties
+quarkus.smallrye-graphql-client.star-wars-typesafe.url=https://production.star.wars
+```
+
+These problems is leftovers not fixed in https://github.com/quarkusio/quarkus/issues/21336.
+
 Follow the steps for initializing the local Vault container.
 
 ```shell
@@ -34,6 +50,9 @@ Login to http://localhost:8200 with $Root Token FROM terminal A and add secrets 
   "quarkus.log.category.\"org.acme.rest.client.CountriesResource\".level": "DEBUG"
 }
 ```
+
+Start the app with `mvn quarkus:dev`.
+
 
 # Tests and expectations
 On startup the following should be printed. (And print errors)
