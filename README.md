@@ -47,7 +47,8 @@ Login to http://localhost:8200 with $Root Token FROM terminal A and add secrets 
   "quarkus.micrometer.export.influx.uri": "https://localhost/metrics",
   "quarkus.rest-client.country-api.url": "https://restcountries.com/",
   "quarkus.smallrye-graphql-client.star-wars-typesafe.url": "https://swapi-graphql.netlify.app/.netlify/functions/index",
-  "quarkus.log.category.\"org.acme.rest.client.CountriesResource\".level": "DEBUG"
+  "quarkus.log.category.\"org.acme.rest.client.CountriesResource\".level": "DEBUG",
+  "eventing.config": "the config"
 }
 ```
 
@@ -75,6 +76,16 @@ should print json, not fail with
         at io.smallrye.graphql.client.vertx.typesafe.VertxTypesafeGraphQLClientBuilder.build(VertxTypesafeGraphQLClientBuilder.java:124)
         at io.quarkus.smallrye.graphql.client.runtime.SmallRyeGraphQLClientRecorder.lambda$typesafeClientSupplier$0(SmallRyeGraphQLClientRecorder.java:20)
         at org.acme.graphql.client.StarWarsClientApi_eafe9a3b2d3e2a2588a03c49fa86dfd0a5185761_Synthetic_Bean.create(Unknown Source)
+```
+
+```shell
+curl 'http://localhost:8080/graphql' \
+  -H 'Accept: application/json' \
+  --data-raw '{"query":"query {\n  something {\n    value\n  }\n}","variables":null}'
+```
+should print json and print in console
+```text
+2022-08-18 12:44:01,405 INFO  [org.acm.gra.Service] (vert.x-eventloop-thread-0) value the config
 ```
 
 ## Workaround
