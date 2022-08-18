@@ -10,7 +10,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
@@ -37,10 +36,7 @@ public class CountriesResource {
     @Path("/name/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Set<Country> name(@PathParam("name") String name) {
-        System.out.println(ConfigProvider.getConfig().getValues("a-private-key", String.class));
-        System.out.println(secret2);
-        logger.info("afdwadwad");
-        logger.debug("afwafwfwafdwadwad");
+        logger.debugf("countriesService.getByName(%s);", name);
         //meterRegistry.counter("count").increment();
         return countriesService.getByName(name);
     }

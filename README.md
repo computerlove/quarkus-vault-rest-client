@@ -30,7 +30,8 @@ Login to http://localhost:8200 with $Root Token FROM terminal A and add secrets 
   "quarkus.micrometer.export.influx.bucket": "abucket",
   "quarkus.micrometer.export.influx.uri": "https://localhost/metrics",
   "quarkus.rest-client.country-api.url": "https://restcountries.com/",
-  "quarkus.smallrye-graphql-client.star-wars-typesafe.url": "https://swapi-graphql.netlify.app/.netlify/functions/index"
+  "quarkus.smallrye-graphql-client.star-wars-typesafe.url": "https://swapi-graphql.netlify.app/.netlify/functions/index",
+  "quarkus.log.category.\"org.acme.rest.client.CountriesResource\".level": "DEBUG"
 }
 ```
 
@@ -65,4 +66,5 @@ quarkus.micrometer.export.influx.org=
 quarkus.micrometer.export.influx.bucket=
 quarkus.micrometer.export.influx.uri=
 quarkus.smallrye-graphql-client.star-wars-typesafe.url=
+quarkus.log.category."org.acme.rest.client.CountriesResource".level=INFO
 ```
