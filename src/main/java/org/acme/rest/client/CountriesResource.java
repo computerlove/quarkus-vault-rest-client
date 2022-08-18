@@ -9,7 +9,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import io.smallrye.mutiny.Uni;
@@ -21,13 +24,28 @@ public class CountriesResource {
     @RestClient
     CountriesService countriesService;
 
+    @ConfigProperty(name = "newconfig")
+    String secret2;
+
+   // @Inject
+   // MeterRegistry meterRegistry;
+
+    @Inject
+    Logger logger;
+
     @GET
     @Path("/name/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Set<Country> name(@PathParam String name) {
+        System.out.println(ConfigProvider.getConfig().getValues("a-private-key", String.class));
+        System.out.println(secret2);
+        logger.info("afdwadwad");
+        logger.debug("afwafwfwafdwadwad");
+        //meterRegistry.counter("count").increment();
         return countriesService.getByName(name);
     }
-
+//
+//
     @GET
     @Path("/name-async/{name}")
     @Produces(MediaType.APPLICATION_JSON)
